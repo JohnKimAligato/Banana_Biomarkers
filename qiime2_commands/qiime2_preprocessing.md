@@ -20,7 +20,7 @@ qiime fondue get-sequences \
       --verbose
 ```
 
-## 2. View the Sequencing Data Summary of the Reads
+## 2. View the Sequencing Data Summary of the Reads [q2-demux](https://github.com/qiime2/q2-demux)
 Sequencing Data Summary for Single Reads
 ```bash
 qiime demux summarize \
@@ -32,6 +32,21 @@ Sequencing Data Summary for Paired Reads
 qiime demux summarize \
       --i-data fondue-output/paired_reads.qza \
       --o-visualization fondue-output/paired_reads.qzv
+```
+
+## 3. Cut the adapter sequences and primers using [q2-cutadapt](https://github.com/qiime2/q2-cutadapt)
+```bash
+qiime cutadapt trim-paired \
+--i-demultiplexed-sequences PRJNA827236_diseased.qza \
+--p-front-f CCTACGGGNBGCASCAN \
+--p-adapter-r NCTGSTGCVNCCCGTAGG \
+--p-front-r GRMYWMNVGGGTATCTAAT \
+--p-adapter-f ATTAGATACCCBNKWRKYC \
+--p-discard-untrimmed \
+--p-match-adapter-wildcards \
+--p-cores 10 \
+--o-trimmed-sequences trimmed/diseased/PRJNA827236_diseased_trimmed-seq.qza \
+--verbose
 ```
 
 
