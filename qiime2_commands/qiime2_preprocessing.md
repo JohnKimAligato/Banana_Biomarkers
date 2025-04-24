@@ -34,7 +34,7 @@ qiime demux summarize \
       --o-visualization fondue-output/paired_reads.qzv
 ```
 
-## 3. Cut the adapter sequences and primers using [q2-cutadapt](https://github.com/qiime2/q2-cutadapt)
+## 3. Cut the adapter sequences and/or primers using [q2-cutadapt](https://github.com/qiime2/q2-cutadapt)
 ```bash
 qiime cutadapt trim-paired \
 --i-demultiplexed-sequences PRJNA827236_diseased.qza \
@@ -49,4 +49,66 @@ qiime cutadapt trim-paired \
 --verbose
 ```
 
+## 4. Merge the `paired-end reads` using [q2-vsearch](https://github.com/qiime2/q2-vsearch)
+```bash
+qiime vsearch merge-pairs \
+--i-demultiplexed-seqs trimmed/diseased/PRJNA827187_diseased_trimmed-seq.qza \
+--output-dir merged/PRJNA827187_diseased_merged-trimmed-seq \
+--p-threads 4 \
+--verbose
+```
 
+## 5. Denoise the merged `paired-end reads` using [q2-deblur](https://github.com/qiime2/q2-deblur)
+```bash
+qiime deblur denoise-16S \
+--i-demultiplexed-seqs merged/PRJNA827236_healthy_merged-trimmed-seq/merged_sequences.qza \
+--p-trim-length 404 \
+--p-sample-stats \
+--o-representative-sequences deblur/rep-seqs/PRJNA827236_healthy.qza \
+--o-table deblur/table/PRJNA827236_healthy.qza \
+--o-stats deblur/stats/PRJNA827236_healthy.qza \
+--verbose
+```
+
+## 6. Combine/merge the `feature tables` and `representative sequences` produced after denoising using [q2-feature-table](https://github.com/qiime2/q2-feature-table)
+Merging Feature-tables:
+```bash
+qiime feature-table merge \
+--i-tables deblur/table/PRJNA827195_healthy.qza \
+--i-tables deblur/table/PRJNA827244_healthy.qza \
+--i-tables deblur/table/PRJNA725994_healthy.qza \
+--i-tables deblur/table/PRJNA827236_healthy.qza \
+--i-tables deblur/table/PRJNA494050_healthy.qza \
+--i-tables deblur/table/PRJNA827187_healthy.qza \
+--o-merged-table healthy_merged_table.qza
+```
+Visualizing the feature-table summary incorporated with metadata:
+```bash
+qiime feature-table merge \
+--i-tables deblur/table/PRJNA827195_healthy.qza \
+--i-tables deblur/table/PRJNA827244_healthy.qza \
+--i-tables deblur/table/PRJNA725994_healthy.qza \
+--i-tables deblur/table/PRJNA827236_healthy.qza \
+--i-tables deblur/table/PRJNA494050_healthy.qza \
+--i-tables deblur/table/PRJNA827187_healthy.qza \
+--o-merged-table healthy_merged_table.qza
+```
+
+Merging Representative sequences:
+```bash
+qiime feature-table merge-seqs \
+--i-data deblur/rep-seqs/PRJNA827195_healthy.qza \
+--i-data deblur/rep-seqs/PRJNA827244_healthy.qza \
+--i-data deblur/rep-seqs/PRJNA725994_healthy.qza \
+--i-data deblur/rep-seqs/PRJNA827236_healthy.qza \
+--i-data deblur/rep-seqs/PRJNA494050_healthy.qza \
+--i-data deblur/rep-seqs/PRJNA827187_healthy.qza \
+--o-merged-data healthy_merged_seqs.qza
+```
+Visualizing the representative sequences summary:
+```bash
+qiime feature-table tabulate-seqs \
+--i-data all_merged_seqs.qza \
+--o-visualization all_merged_seqs.qzv \
+—verbose
+```
