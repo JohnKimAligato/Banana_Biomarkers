@@ -112,3 +112,44 @@ qiime feature-table tabulate-seqs \
 --o-visualization all_merged_seqs.qzv \
 —verbose
 ```
+
+## 7. Taxonomic Classification of Representative Sequences using [Greengenes database v2024.09](https://ftp.microbio.me/greengenes_release/current/)
+Backbone mapping:
+```bash
+qiime greengenes2 non-v4-16s \
+--i-table all_merged_table.qza \
+--i-sequences all_merged_seqs.qza \
+--i-backbone 2024.09.backbone.full-length.fna.qza \
+--o-mapped-table gg24_nonv4_table.qza \
+--o-representatives gg24_nonv4_seqs.qza
+```
+Classification:
+```bash
+qiime greengenes2 taxonomy-from-table \
+--i-reference-taxonomy 2024.09.taxonomy.asv.nwk.qza \
+ --i-table gg24_nonv4_table.qza \
+--o-classification gg24_nonv4_taxonomy.qza
+```
+Visualization:
+```bash
+qiime taxa barplot \
+--i-table gg24_nonv4_table.qza \
+--i-taxonomy gg24_nonv4_taxonomy.qza \
+--m-metadata-file q2-metadata.tsv \
+--o-visualization gg24_nonv4_taxonomy-bar-plots.qzv
+```
+
+## 8. Generate a Phylogenetic Tree using [Greengenes database v2024.09](https://ftp.microbio.me/greengenes_release/current/)
+Phylogenetic Tree Filtration and Generation:
+```bash
+qiime phylogeny filter-tree \
+--i-tree 2024.09.phylogeny.asv.nwk.qza \
+--i-table gg24_nonv4_table.qza \
+--o-filtered-tree filtered-2024.09.phylogeny.asv.nwk.qza
+```
+Exporting the Phylogenetic Tree:
+```bash
+qiime tools export \
+--input-path filtered-2024.09.phylogeny.asv.nwk.qza \
+--output-path filtered-2024.09.phylogeny.asv.nwk
+```
