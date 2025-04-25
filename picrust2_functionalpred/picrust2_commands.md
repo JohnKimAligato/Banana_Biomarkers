@@ -8,7 +8,9 @@ picrust2_pipeline.py \
 -i study_table.tsv \
 -o picrust2_out_pipeline \
 -p 8
-
+```
+## 2. Add descriptions to the predicted metagenome and pathways
+```bash
 add_descriptions.py -i EC_metagenome_out/pred_metagenome_unstrat.tsv.gz -m EC \
 -o EC_metagenome_out/pred_metagenome_unstrat_descrip.tsv.gz
 

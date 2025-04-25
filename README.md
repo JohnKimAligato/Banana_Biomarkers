@@ -12,6 +12,7 @@ Welcome! This repository contains datasets, workflows, and scripts used in a mic
 ```plaintext
 📂 data/               # Meta-analysis datasets (e.g., OTU tables, metadata)
 📂 qiime2_commands/    # QIIME2 command-line scripts
+📂 picrust2_functionalpred/ # R scripts for visualization and analysis
 📂 r_scripts/          # R scripts for visualization and analysis
 📄 README.md           # Project overview and instructions
 📄 LICENSE             # License information
