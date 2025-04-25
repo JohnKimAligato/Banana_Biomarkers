@@ -108,3 +108,5 @@ volcano_plot <- ggplot(data = df, aes(x = LDAscore, y = -log10(FDR), col = diffe
 
 # Show plot
 print(volcano_plot)
+
+# Fin.
