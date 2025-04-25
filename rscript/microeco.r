@@ -141,7 +141,7 @@ tmp2$data_abund$Sample %<>% factor(., levels = rownames(tmp$sample_table))
 tmp2$plot_line(xtext_angle = 30, color_values = RColorBrewer::brewer.pal(12, "Paired")) + ylab("OTUs ratio (%)")
 
 
-#ITO YUNG PAG GAWA NG CHORD DIAGRAM
+#CHORD DIAGRAM
 t1$cal_sum_links(taxa_level = "Phylum")
 # interactive visualization; require chorddiag package; see https://github.com/mattflor/chorddiag
 t1$plot_sum_links(method = "chorddiag", plot_pos = TRUE, plot_num = 10)
