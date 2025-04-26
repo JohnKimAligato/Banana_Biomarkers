@@ -13,7 +13,7 @@ Read our Research Manuscript: 📄 [Predicting Putative Microbial Biomarkers for
 
 ```plaintext
 📂 data/               # Meta-analysis datasets (e.g., OTU tables, metadata)
-📂 picrust2_functionalpred/ # R scripts for visualization and analysis
+📂 picrust2_functionalpred/ # PICRUSt2 command-line scripts
 📂 qiime2_commands/    # QIIME2 command-line scripts
 📂 r_scripts/          # R scripts for visualization and analysis
 📄 README.md           # Project overview and instructions
