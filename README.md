@@ -1,5 +1,6 @@
 # Predicting Putative Microbial Biomarkers for the Biocontrol of Fusarium Wilt Disease in Bananas (*Musa* spp.)
 Authors: Christia Felice R. Espiritu, John Kim D. Aligato, Angel Reign P. Santos, Nikki Heherson A. Dagamac, Christian Elmarc O. Bautista, and Crissa Ann I. Lilagan
+
 📧 *Corresponding Author Email:* [christiafelice.espiritu.sci@ust.edu.ph](https://mail.google.com/mail/u/1/#search/christiafelice.espiritu.sci%40ust.edu.ph)
 
 # 🧬 Banana Rhizosphere Microbiome Meta-Analysis: QIIME2 + R
